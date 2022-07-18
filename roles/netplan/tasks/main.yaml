@@ -1,0 +1,6 @@
+- name: Create config for netplan
+  template:
+    src: "files/01-netcfg.yaml.j2"
+    dest: "/etc/netplan/01-netcfg.yaml"
+
+
