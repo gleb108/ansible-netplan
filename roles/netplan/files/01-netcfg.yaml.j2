@@ -3,21 +3,41 @@ network:
   renderer: networkd
   ethernets:
 {% for eth in netplan.ethernets %}
-    {{ eth }}:
-      dhcp4: no
+    {{ eth.name }}:
+{% if eth.dhcp4 is defined %}
+      dhcp4: {{ eth.dhcp4 }}
+{% endif %}
+{% if eth.address is defined %}
+      addresses: {{ eth.address }}
+{% endif %}
+{% if eth.gateway4 is defined %}
+      gateway4: {{ eth.gateway4 }}
+{% endif %}
+{% if eth.nameservers is defined %}
+      nameservers:
+            search: {{ bond.nameservers.search }}
+            addresses: {{ bond.nameservers.addresses }}
+{% endif %}
 {% endfor %}
+{% if netplan.bonds is defined %}
   bonds:
 {% for bond in netplan.bonds %}
     {{ bond.name }}:
       interfaces: {{ bond.members }}
+{% if bond.address is defined %}
       addresses: {{ bond.address }}
-      gateway4: {{ gateway }}
+{% endif %}
+{% if bond.gateway4 is defined %}
+      gateway4: {{ bond.gateway4 }}
+{% endif %}
       parameters:
         mode: 802.3ad
         transmit-hash-policy: layer3+4
         mii-monitor-interval: 1
-{% endfor %}
+{% if bond.nameservers is defined %}
       nameservers:
-            search: {{ nameservers.search }}
-            addresses: {{ nameservers.addresses }}
-
+            search: {{ bond.nameservers.search }}
+            addresses: {{ bond.nameservers.addresses }}
+{% endif %}
+{% endfor %}
+{% endif %}
