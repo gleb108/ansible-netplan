@@ -7,10 +7,16 @@ all:
           ansible_host: 10.39.0.110
           netplan:
             ethernets:
-              - ens3
-              - ens4
-              - ens5
-              - ens6
+              - name: ens3      
+                dhcp4: no
+              - name: ens4
+                dhcp4: no
+              - name: ens5
+                dhcp4: no
+                address: 10.0.2.10/24
+              - name: ens6
+                dhcp4: no
+                address: 10.0.3.10/24
             bonds:
               - name: bond0      
                 members:      
@@ -18,21 +24,30 @@ all:
                   - ens4
                 address:
                   10.0.1.10/24
-              - name: bond1      
-                members:      
-                  - ens5
-                  - ens6
-                address:
-                  10.0.2.10/24
+                gateway4: 10.0.1.1
+                nameservers:
+                  search:
+                    - jnpr.net
+                    - juniper.net
+                    - englab.juniper.net
+                  addresses:      
+                    - 8.8.8.8
+                    - 1.1.1.1
         focal30:
           remote_user: root
           ansible_host: 10.39.0.111
           netplan:
             ethernets:
-              - ens3
-              - ens4
-              - ens5
-              - ens6
+              - name: ens3      
+                dhcp4: no
+              - name: ens4
+                dhcp4: no
+              - name: ens5
+                dhcp4: no
+                address: 10.0.2.11/24
+              - name: ens6
+                dhcp4: no
+                address: 10.0.3.11/24
             bonds:
               - name: bond0      
                 members:      
@@ -40,21 +55,30 @@ all:
                   - ens4
                 address:
                   10.0.1.11/24
-              - name: bond1      
-                members:      
-                  - ens5
-                  - ens6
-                address:
-                  10.0.2.11/24
+                gateway4: 10.0.1.1
+                nameservers:
+                  search:
+                    - jnpr.net
+                    - juniper.net
+                    - englab.juniper.net
+                  addresses:      
+                    - 8.8.8.8
+                    - 1.1.1.1
         focal31:
           remote_user: root
           ansible_host: 10.39.0.112
           netplan:
             ethernets:
-              - ens3
-              - ens4
-              - ens5
-              - ens6
+              - name: ens3      
+                dhcp4: no
+              - name: ens4
+                dhcp4: no
+              - name: ens5
+                dhcp4: no
+                address: 10.0.2.12/24
+              - name: ens6
+                dhcp4: no
+                address: 10.0.3.12/24
             bonds:
               - name: bond0      
                 members:      
@@ -62,22 +86,13 @@ all:
                   - ens4
                 address:
                   10.0.1.12/24
-              - name: bond1      
-                members:      
-                  - ens5
-                  - ens6
-                address:
-                  10.0.2.12/24
-                
+                nameservers:
+                  search:
+                    - jnpr.net
+                    - juniper.net
+                    - englab.juniper.net
+                  addresses:      
+                    - 8.8.8.8
+                    - 1.1.1.1
 
-  vars:
-    gateway: 10.39.0.1
-    nameservers:
-      search:
-        - jnpr.net
-        - juniper.net
-        - englab.juniper.net
-      addresses:      
-        - 8.8.8.8
-        - 1.1.1.1
 
