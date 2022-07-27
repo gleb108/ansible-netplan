@@ -4,6 +4,15 @@
     dest: '/etc/netplan/01-netcfg.old'
     force: no
 
+- name: Create netdev file for veth pair
+  template:
+    src: 'files/25-veth-b1.netdev.j2'
+    dest: '/lib/systemd/network/25-veth-b1.netdev'
+
+- name: Create veth pair (restart systemd-networkd)
+  shell: 'systemctl restart systemd-networkd'
+  become: yes
+
 - name: Create config for netplan
   template:
     src: "files/01-netcfg.yaml.j2"

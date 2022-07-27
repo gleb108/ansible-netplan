@@ -2,99 +2,316 @@ all:
   children:
     nodes:
       hosts:
-        focal27:
+        tfci-node1:
           remote_user: root
-          ansible_host: 10.39.0.110
+          ansible_host: 10.87.85.1
+          veth_pair: "veth1:veth2"
           netplan:
             ethernets:
-              - name: ens3      
+              - name: eno12399
                 dhcp4: no
-              - name: ens4
+              - name: eno12409
                 dhcp4: no
-              - name: ens5
+              - name: eno12419
                 dhcp4: no
-                address:
-                  - 10.0.2.10/24
-              - name: ens6
+              - name: eno12429
                 dhcp4: no
-                address:
-                  - 10.0.3.10/24
+              - name: ens2f0
+                dhcp4: no
+                address: 20.10.20.11/24
+              - name: ens2f1
+                dhcp4: no
+                address: 20.10.30.11/24
+              - name: veth1
+                dhcp4: no
+              - name: veth2
+                dhcp4: no
             bonds:
-              - name: bond0      
-                members:      
-                  - ens3
-                  - ens4
+              - name: bond0
+                members:
+                  - eno12399
+                  - eno12409
+              - name: bond1
+                members:
+                  - eno12419
+                  - eno12429
                 address:
-                  - 10.0.1.10/24
-                gateway4: 10.0.1.1
+                  20.10.10.11/24
+            bridges:
+              - name: br0
+                members:
+                  - bond0
+                  - veth1
+                address:
+                  10.87.85.1/25
+                gateway4: 10.87.85.126
                 nameservers:
                   search:
                     - jnpr.net
                     - juniper.net
                     - englab.juniper.net
-                  addresses:      
-                    - 8.8.8.8
-                    - 1.1.1.1
-        focal30:
+                  addresses:
+                    - 66.129.233.81
+                    - 10.84.5.101
+                    - 172.21.200.60
+        tfci-node2:
           remote_user: root
-          ansible_host: 10.39.0.111
+          ansible_host: 10.87.85.2
+          veth_pair: "veth1:veth2"
           netplan:
             ethernets:
-              - name: ens3      
+              - name: eno12399
                 dhcp4: no
-              - name: ens4
+              - name: eno12409
                 dhcp4: no
-              - name: ens5
+              - name: eno12419
                 dhcp4: no
-                address: 10.0.2.11/24
-              - name: ens6
+              - name: eno12429
                 dhcp4: no
-                address: 10.0.3.11/24
+              - name: ens2f0
+                dhcp4: no
+                address: 20.10.20.12/24
+              - name: ens2f1
+                dhcp4: no
+                address: 20.10.30.12/24
+              - name: veth1
+                dhcp4: no
+              - name: veth2
+                dhcp4: no
             bonds:
-              - name: bond0      
-                members:      
-                  - ens3
-                  - ens4
+              - name: bond0
+                members:
+                  - eno12399
+                  - eno12409
+              - name: bond1
+                members:
+                  - eno12419
+                  - eno12429
                 address:
-                  10.0.1.11/24
-                gateway4: 10.0.1.1
+                  20.10.10.12/24
+            bridges:
+              - name: br0
+                members:
+                  - bond0
+                  - veth1
+                address:
+                  10.87.85.2/25
+                gateway4: 10.87.85.126
                 nameservers:
                   search:
                     - jnpr.net
                     - juniper.net
                     - englab.juniper.net
-                  addresses:      
-                    - 8.8.8.8
-                    - 1.1.1.1
-        focal31:
+                  addresses:
+                    - 66.129.233.81
+                    - 10.84.5.101
+                    - 172.21.200.60
+        tfci-node3:
           remote_user: root
-          ansible_host: 10.39.0.112
+          ansible_host: 10.87.85.3
+          veth_pair: "veth1:veth2"
           netplan:
             ethernets:
-              - name: ens3      
+              - name: eno12399
                 dhcp4: no
-              - name: ens4
+              - name: eno12409
                 dhcp4: no
-              - name: ens5
+              - name: eno12419
                 dhcp4: no
-                address: 10.0.2.12/24
-              - name: ens6
+              - name: eno12429
                 dhcp4: no
-                address: 10.0.3.12/24
+              - name: ens2f0
+                dhcp4: no
+                address: 20.10.20.13/24
+              - name: ens2f1
+                dhcp4: no
+                address: 20.10.30.13/24
+              - name: veth1
+                dhcp4: no
+              - name: veth2
+                dhcp4: no
             bonds:
-              - name: bond0      
-                members:      
-                  - ens3
-                  - ens4
+              - name: bond0
+                members:
+                  - eno12399
+                  - eno12409
+              - name: bond1
+                members:
+                  - eno12419
+                  - eno12429
                 address:
-                  10.0.1.12/24
+                  20.10.10.13/24
+            bridges:
+              - name: br0
+                members:
+                  - bond0
+                  - veth1
+                address:
+                  10.87.85.3/25
+                gateway4: 10.87.85.126
                 nameservers:
                   search:
                     - jnpr.net
                     - juniper.net
                     - englab.juniper.net
-                  addresses:      
-                    - 8.8.8.8
-                    - 1.1.1.1
-
+                  addresses:
+                    - 66.129.233.81
+                    - 10.84.5.101
+                    - 172.21.200.60
+        tfci-node4:
+          remote_user: root
+          ansible_host: 10.87.85.4
+          veth_pair: "veth1:veth2"
+          netplan:
+            ethernets:
+              - name: eno12399
+                dhcp4: no
+              - name: eno12409
+                dhcp4: no
+              - name: eno12419
+                dhcp4: no
+              - name: eno12429
+                dhcp4: no
+              - name: ens2f0
+                dhcp4: no
+                address: 20.10.20.14/24
+              - name: ens2f1
+                dhcp4: no
+                address: 20.10.30.14/24
+              - name: veth1
+                dhcp4: no
+              - name: veth2
+                dhcp4: no
+            bonds:
+              - name: bond0
+                members:
+                  - eno12399
+                  - eno12409
+              - name: bond1
+                members:
+                  - eno12419
+                  - eno12429
+                address:
+                  20.10.10.14/24
+            bridges:
+              - name: br0
+                members:
+                  - bond0
+                  - veth1
+                address:
+                  10.87.85.4/25
+                gateway4: 10.87.85.126
+                nameservers:
+                  search:
+                    - jnpr.net
+                    - juniper.net
+                    - englab.juniper.net
+                  addresses:
+                    - 66.129.233.81
+                    - 10.84.5.101
+                    - 172.21.200.60
+        tfci-node5:
+          remote_user: root
+          ansible_host: 10.87.85.5
+          veth_pair: "veth1:veth2"
+          netplan:
+            ethernets:
+              - name: eno12399
+                dhcp4: no
+              - name: eno12409
+                dhcp4: no
+              - name: eno12419
+                dhcp4: no
+              - name: eno12429
+                dhcp4: no
+              - name: ens2f0
+                dhcp4: no
+                address: 20.10.20.15/24
+              - name: ens2f1
+                dhcp4: no
+                address: 20.10.30.15/24
+              - name: veth1
+                dhcp4: no
+              - name: veth2
+                dhcp4: no
+            bonds:
+              - name: bond0
+                members:
+                  - eno12399
+                  - eno12409
+              - name: bond1
+                members:
+                  - eno12419
+                  - eno12429
+                address:
+                  20.10.10.15/24
+            bridges:
+              - name: br0
+                members:
+                  - bond0
+                  - veth1
+                address:
+                  10.87.85.5/25
+                gateway4: 10.87.85.126
+                nameservers:
+                  search:
+                    - jnpr.net
+                    - juniper.net
+                    - englab.juniper.net
+                  addresses:
+                    - 66.129.233.81
+                    - 10.84.5.101
+                    - 172.21.200.60
+        tfci-node6:
+          remote_user: root
+          ansible_host: 10.87.85.6
+          veth_pair: "veth1:veth2"
+          netplan:
+            ethernets:
+              - name: eno12399
+                dhcp4: no
+              - name: eno12409
+                dhcp4: no
+              - name: eno12419
+                dhcp4: no
+              - name: eno12429
+                dhcp4: no
+              - name: ens2f0
+                dhcp4: no
+                address: 20.10.20.16/24
+              - name: ens2f1
+                dhcp4: no
+                address: 20.10.30.16/24
+              - name: veth1
+                dhcp4: no
+              - name: veth2
+                dhcp4: no
+            bonds:
+              - name: bond0
+                members:
+                  - eno12399
+                  - eno12409
+              - name: bond1
+                members:
+                  - eno12419
+                  - eno12429
+                address:
+                  20.10.10.16/24
+            bridges:
+              - name: br0
+                members:
+                  - bond0
+                  - veth1
+                address:
+                  10.87.85.6/25
+                gateway4: 10.87.85.126
+                nameservers:
+                  search:
+                    - jnpr.net
+                    - juniper.net
+                    - englab.juniper.net
+                  addresses:
+                    - 66.129.233.81
+                    - 10.84.5.101
+                    - 172.21.200.60
 

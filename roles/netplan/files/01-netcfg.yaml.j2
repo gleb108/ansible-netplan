@@ -8,7 +8,7 @@ network:
       dhcp4: {{ eth.dhcp4 }}
 {% endif %}
 {% if eth.address is defined %}
-      addresses: {{ eth.address }}
+      addresses: [ {{ eth.address }} ]
 {% endif %}
 {% if eth.gateway4 is defined %}
       gateway4: {{ eth.gateway4 }}
@@ -25,7 +25,7 @@ network:
     {{ bond.name }}:
       interfaces: {{ bond.members }}
 {% if bond.address is defined %}
-      addresses: {{ bond.address }}
+      addresses: [ {{ bond.address }} ]
 {% endif %}
 {% if bond.gateway4 is defined %}
       gateway4: {{ bond.gateway4 }}
@@ -38,6 +38,24 @@ network:
       nameservers:
             search: {{ bond.nameservers.search }}
             addresses: {{ bond.nameservers.addresses }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if netplan.bridges is defined %}
+  bridges:
+{% for bridge in netplan.bridges %}
+    {{ bridge.name }}:
+      interfaces: {{ bridge.members }}
+{% if bridge.address is defined %}
+      addresses: [ {{ bridge.address }} ]
+{% endif %}
+{% if bridge.gateway4 is defined %}
+      gateway4: {{ bridge.gateway4 }}
+{% endif %}
+{% if bridge.nameservers is defined %}
+      nameservers:
+            search: {{ bridge.nameservers.search }}
+            addresses: {{ bridge.nameservers.addresses }}
 {% endif %}
 {% endfor %}
 {% endif %}
